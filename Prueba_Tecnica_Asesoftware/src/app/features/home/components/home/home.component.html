@@ -1,0 +1,42 @@
+<div class="container">
+  <div class="row">
+    <div class="col-12 col-md-6 offset-md-3">
+      <nb-card accent="info">
+        <nb-card-header
+          >Asesoftware Sistema de agendamiento de turnos</nb-card-header
+        >
+        <nb-card-body>
+          Solución de agendamiento de turnos para que los clientes de varios
+          comercios puedan reservar con anticipación un espacio de atención en
+          un servicio específico que presta cada comercio.
+        </nb-card-body>
+        <nb-card-footer class="text-center">
+          <a
+            *ngIf="sessionActive"
+            nbButton
+            hero
+            [routerLink]="['/agendamiento']"
+            type="button"
+            title="agendamiento"
+            status="primary"
+          >
+            <nb-icon icon="person-outline"></nb-icon>
+            Agendar turno
+          </a>
+          <a
+            *ngIf="!sessionActive"
+            nbButton
+            hero
+            [routerLink]="['/sesion/inicio-sesion']"
+            type="button"
+            title="Iniciar Sesión"
+            status="primary"
+          >
+            <nb-icon icon="person-outline"></nb-icon>
+            Iniciar Sesión
+          </a>
+        </nb-card-footer>
+      </nb-card>
+    </div>
+  </div>
+</div>

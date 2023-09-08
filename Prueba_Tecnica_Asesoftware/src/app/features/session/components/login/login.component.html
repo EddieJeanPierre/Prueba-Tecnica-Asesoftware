@@ -1,0 +1,82 @@
+<div class="container">
+  <div class="row">
+    <div class="col-12 col-md-6 offset-md-3">
+      <nb-card [accent]="formStatus">
+        <nb-card-header class="text-center">Iniciar Sesión</nb-card-header>
+        <nb-card-body>
+          <form
+            [formGroup]="loginForm"
+            class="container"
+            (ngSubmit)="loginSubmit()"
+            [nbSpinner]="loadingLoginForm"
+            nbSpinnerStatus="info"
+          >
+            <div class="row">
+              <div class="col-12 mb-3">
+                <nb-form-field>
+                  <label for="user-name">Usuario</label>
+                  <input
+                    type="text"
+                    nbInput
+                    fullWidth
+                    shape="semi-round"
+                    id="user-name"
+                    name="user-name"
+                    type="text"
+                    formControlName="userName"
+                    [status]="getFormControl('userName').status"
+                  />
+                  <label
+                    for="user-name"
+                    class="caption status-danger"
+                    *ngIf="
+                      getFormControl('userName').edited &&
+                      getFormControl('userName').hasError
+                    "
+                  >
+                    {{ getFormControl("userName").error }}
+                  </label>
+                </nb-form-field>
+              </div>
+              <div class="col-12 mb-3">
+                <label for="password">Contraseña</label>
+                <input
+                  type="password"
+                  nbInput
+                  fullWidth
+                  shape="semi-round"
+                  id="password"
+                  name="password"
+                  formControlName="userPassword"
+                  [status]="getFormControl('userPassword').status"
+                />
+                <label
+                  for="password"
+                  class="caption status-danger"
+                  *ngIf="
+                    getFormControl('userPassword').edited &&
+                    getFormControl('userPassword').hasError
+                  "
+                >
+                  {{ getFormControl("userPassword").error }}
+                </label>
+              </div>
+              <div class="col-12 mb-3 text-center">
+                <button
+                  nbButton
+                  hero
+                  title="Ingresar"
+                  status="primary"
+                  type="submit"
+                  [disabled]="loginForm.invalid || loadingLoginForm"
+                >
+                  Ingresar
+                </button>
+              </div>
+            </div>
+          </form>
+        </nb-card-body>
+      </nb-card>
+    </div>
+  </div>
+</div>

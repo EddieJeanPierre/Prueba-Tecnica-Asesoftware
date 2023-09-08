@@ -1,0 +1,36 @@
+<nb-card [accent]="turnList.length == 0 ? 'warning' : 'info'">
+  <nb-card-header class="text-center">Listado de Turnos</nb-card-header>
+  <nb-card-body [nbSpinner]="loadingTurnList" nbSpinnerStatus="info">
+    <table
+      *ngIf="turnList.length > 0"
+      aria-describedby="Table Logs"
+      bc-table
+      class="table table-striped centered align-middle table-height"
+    >
+      <thead>
+        <tr>
+          <th
+            class="centered"
+            scope="col"
+            bc-cell
+            *ngFor="let column of tableColumns"
+          >
+            <label class="column-filter pointer-item">
+              {{ column }}
+            </label>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let turn of turnList">
+          <td bc-cell>{{ turn.labelCommerce }}</td>
+          <td bc-cell>{{ turn.labelService }}</td>
+          <td bc-cell type="date">{{ turn.dateTurn }}</td>
+          <td bc-cell>{{ turn.initTime }}</td>
+          <td bc-cell>{{ turn.finalTime }}</td>
+        </tr>
+      </tbody>
+    </table>
+    <p *ngIf="turnList.length == 0" class="text-center">No hay registros</p>
+  </nb-card-body>
+</nb-card>

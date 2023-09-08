@@ -1,0 +1,144 @@
+<nb-card [accent]="formStatus">
+  <nb-card-header class="text-center">Generación de Turnos</nb-card-header>
+  <nb-card-body>
+    <form
+      [formGroup]="scheduleForm"
+      class="container"
+      (ngSubmit)="scheduleSubmit()"
+      [nbSpinner]="loadingScheduleForm"
+      nbSpinnerStatus="info"
+    >
+      <div class="row">
+        <div class="col-12 col-md-6 mb-3">
+          <nb-form-field
+            [nbSpinner]="loadingCommerceList"
+            nbSpinnerStatus="info"
+          >
+            <nb-select
+              placeholder="Comercio"
+              id="commerce"
+              name="commerce"
+              formControlName="commerce"
+              [status]="getFormControl('commerce').status"
+              (selectedChange)="commerceSelected()"
+            >
+              <nb-option
+                *ngFor="let commerce of commerceList"
+                [value]="commerce.idCommerce"
+              >
+                {{ commerce.nameCommerce }}
+              </nb-option>
+            </nb-select>
+            <label
+              for="commerce"
+              class="caption status-danger"
+              *ngIf="
+                getFormControl('commerce').edited &&
+                getFormControl('commerce').hasError
+              "
+            >
+              {{ getFormControl("commerce").error }}
+            </label>
+          </nb-form-field>
+        </div>
+        <div class="col-12 col-md-6 mb-3">
+          <nb-form-field
+            [nbSpinner]="loadingServiceList"
+            nbSpinnerStatus="info"
+          >
+            <nb-select
+              placeholder="Servicio"
+              id="service"
+              name="service"
+              formControlName="service"
+              [status]="getFormControl('service').status"
+              (selectedChange)="serviceSelected()"
+            >
+              <nb-option
+                *ngFor="let service of serviceListFinal"
+                [value]="service.idService"
+              >
+                {{ service.nameService }}
+              </nb-option>
+            </nb-select>
+            <label
+              for="service"
+              class="caption status-danger"
+              *ngIf="
+                getFormControl('service').edited &&
+                getFormControl('service').hasError
+              "
+            >
+              {{ getFormControl("service").error }}
+            </label>
+          </nb-form-field>
+        </div>
+        <div class="col-12 col-md-6 mb-3">
+          <nb-form-field>
+            <input
+              nbInput
+              placeholder="Fecha"
+              id="date"
+              name="date"
+              type="text"
+              autocomplete="off"
+              formControlName="date"
+              [status]="getFormControl('date').status"
+              [nbDatepicker]="dateTimePicker"
+            />
+            <nb-datepicker
+              #dateTimePicker
+              [min]="minDate"
+              [filter]="filterDate"
+            ></nb-datepicker>
+            <label
+              for="date"
+              class="caption status-danger"
+              *ngIf="
+                getFormControl('date').edited && getFormControl('date').hasError
+              "
+            >
+              {{ getFormControl("date").error }}
+            </label>
+          </nb-form-field>
+        </div>
+        <div class="col-12 col-md-6 mb-3">
+          <nb-form-field>
+            <nb-select
+              placeholder="Hora turno"
+              id="turn"
+              name="turn"
+              formControlName="turn"
+              [status]="getFormControl('turn').status"
+            >
+              <nb-option *ngFor="let turn of turnList" [value]="turn.value">
+                {{ turn.label }}
+              </nb-option>
+            </nb-select>
+            <label
+              for="turn"
+              class="caption status-danger"
+              *ngIf="
+                getFormControl('turn').edited && getFormControl('turn').hasError
+              "
+            >
+              {{ getFormControl("turn").error }}
+            </label>
+          </nb-form-field>
+        </div>
+        <div class="col-12 mb-3 text-center">
+          <button
+            nbButton
+            hero
+            title="Generar"
+            status="primary"
+            type="submit"
+            [disabled]="scheduleForm.invalid || loadingScheduleForm"
+          >
+            Generar
+          </button>
+        </div>
+      </div>
+    </form>
+  </nb-card-body>
+</nb-card>
