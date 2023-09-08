@@ -1,0 +1,357 @@
+--
+-- PostgreSQL database dump
+--
+
+-- Dumped from database version 13.1
+-- Dumped by pg_dump version 13.1
+
+-- Started on 2023-09-07 19:32:27
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET xmloption = content;
+SET client_min_messages = warning;
+SET row_security = off;
+
+SET default_tablespace = '';
+
+SET default_table_access_method = heap;
+
+--
+-- TOC entry 201 (class 1259 OID 24709)
+-- Name: comercios; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.comercios (
+    id_comercio integer NOT NULL,
+    nom_comercio character varying(255) NOT NULL,
+    aforo_maximo integer NOT NULL
+);
+
+
+ALTER TABLE public.comercios OWNER TO postgres;
+
+--
+-- TOC entry 200 (class 1259 OID 24707)
+-- Name: comercios_id_comercio_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.comercios_id_comercio_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.comercios_id_comercio_seq OWNER TO postgres;
+
+--
+-- TOC entry 3025 (class 0 OID 0)
+-- Dependencies: 200
+-- Name: comercios_id_comercio_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.comercios_id_comercio_seq OWNED BY public.comercios.id_comercio;
+
+
+--
+-- TOC entry 206 (class 1259 OID 24773)
+-- Name: comercios_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.comercios_seq
+    START WITH 1
+    INCREMENT BY 50
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.comercios_seq OWNER TO postgres;
+
+--
+-- TOC entry 203 (class 1259 OID 24720)
+-- Name: servicios; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.servicios (
+    id_servicio integer NOT NULL,
+    id_comercio integer NOT NULL,
+    nom_servicio character varying(255) NOT NULL,
+    hora_apertura character varying(255) NOT NULL,
+    hora_cierre character varying(255) NOT NULL,
+    duracion integer NOT NULL
+);
+
+
+ALTER TABLE public.servicios OWNER TO postgres;
+
+--
+-- TOC entry 202 (class 1259 OID 24718)
+-- Name: servicios_id_servicio_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.servicios_id_servicio_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.servicios_id_servicio_seq OWNER TO postgres;
+
+--
+-- TOC entry 3026 (class 0 OID 0)
+-- Dependencies: 202
+-- Name: servicios_id_servicio_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.servicios_id_servicio_seq OWNED BY public.servicios.id_servicio;
+
+
+--
+-- TOC entry 207 (class 1259 OID 24793)
+-- Name: servicios_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.servicios_seq
+    START WITH 1
+    INCREMENT BY 50
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.servicios_seq OWNER TO postgres;
+
+--
+-- TOC entry 205 (class 1259 OID 24749)
+-- Name: turnos; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.turnos (
+    id_turno integer NOT NULL,
+    id_servicio integer NOT NULL,
+    fecha_turno character varying(255) NOT NULL,
+    hora_inicio character varying(255) NOT NULL,
+    hora_fin character varying(255) NOT NULL,
+    estado boolean DEFAULT true
+);
+
+
+ALTER TABLE public.turnos OWNER TO postgres;
+
+--
+-- TOC entry 204 (class 1259 OID 24747)
+-- Name: turnos_id_turno_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.turnos_id_turno_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.turnos_id_turno_seq OWNER TO postgres;
+
+--
+-- TOC entry 3027 (class 0 OID 0)
+-- Dependencies: 204
+-- Name: turnos_id_turno_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.turnos_id_turno_seq OWNED BY public.turnos.id_turno;
+
+
+--
+-- TOC entry 208 (class 1259 OID 24817)
+-- Name: turnos_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.turnos_seq
+    START WITH 1
+    INCREMENT BY 50
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.turnos_seq OWNER TO postgres;
+
+--
+-- TOC entry 2870 (class 2604 OID 24712)
+-- Name: comercios id_comercio; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.comercios ALTER COLUMN id_comercio SET DEFAULT nextval('public.comercios_id_comercio_seq'::regclass);
+
+
+--
+-- TOC entry 2871 (class 2604 OID 24723)
+-- Name: servicios id_servicio; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.servicios ALTER COLUMN id_servicio SET DEFAULT nextval('public.servicios_id_servicio_seq'::regclass);
+
+
+--
+-- TOC entry 2872 (class 2604 OID 24752)
+-- Name: turnos id_turno; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.turnos ALTER COLUMN id_turno SET DEFAULT nextval('public.turnos_id_turno_seq'::regclass);
+
+
+--
+-- TOC entry 3012 (class 0 OID 24709)
+-- Dependencies: 201
+-- Data for Name: comercios; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.comercios (id_comercio, nom_comercio, aforo_maximo) FROM stdin;
+1	Comercio 1	50
+2	Comercio 2	50
+3	Comercio 3	100
+\.
+
+
+--
+-- TOC entry 3014 (class 0 OID 24720)
+-- Dependencies: 203
+-- Data for Name: servicios; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.servicios (id_servicio, id_comercio, nom_servicio, hora_apertura, hora_cierre, duracion) FROM stdin;
+1	1	Servicio 1	08:00	18:00	30
+2	2	Servicio 2	05:30	15:30	25
+3	3	Servicio 3	07:30	13:30	40
+\.
+
+
+--
+-- TOC entry 3016 (class 0 OID 24749)
+-- Dependencies: 205
+-- Data for Name: turnos; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.turnos (id_turno, id_servicio, fecha_turno, hora_inicio, hora_fin, estado) FROM stdin;
+13	1	2023-09-12	11:30	12:00	t
+14	1	2023-09-12	11:30	12:00	t
+15	2	2023-09-12	08:25	08:50	t
+16	3	2023-09-26	12:10	12:50	t
+17	2	2023-09-19	05:55	06:20	t
+18	2	2023-09-20	08:25	08:50	t
+19	2	2023-09-19	08:25	08:50	t
+20	1	2023-09-11	11:00	11:30	t
+21	2	2023-09-12	14:15	14:40	t
+\.
+
+
+--
+-- TOC entry 3028 (class 0 OID 0)
+-- Dependencies: 200
+-- Name: comercios_id_comercio_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.comercios_id_comercio_seq', 3, true);
+
+
+--
+-- TOC entry 3029 (class 0 OID 0)
+-- Dependencies: 206
+-- Name: comercios_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.comercios_seq', 1, false);
+
+
+--
+-- TOC entry 3030 (class 0 OID 0)
+-- Dependencies: 202
+-- Name: servicios_id_servicio_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.servicios_id_servicio_seq', 3, true);
+
+
+--
+-- TOC entry 3031 (class 0 OID 0)
+-- Dependencies: 207
+-- Name: servicios_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.servicios_seq', 1, false);
+
+
+--
+-- TOC entry 3032 (class 0 OID 0)
+-- Dependencies: 204
+-- Name: turnos_id_turno_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.turnos_id_turno_seq', 21, true);
+
+
+--
+-- TOC entry 3033 (class 0 OID 0)
+-- Dependencies: 208
+-- Name: turnos_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.turnos_seq', 1, true);
+
+
+--
+-- TOC entry 2875 (class 2606 OID 24717)
+-- Name: comercios comercios_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.comercios
+    ADD CONSTRAINT comercios_pkey PRIMARY KEY (id_comercio);
+
+
+--
+-- TOC entry 2877 (class 2606 OID 24728)
+-- Name: servicios servicios_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.servicios
+    ADD CONSTRAINT servicios_pkey PRIMARY KEY (id_servicio);
+
+
+--
+-- TOC entry 2879 (class 2606 OID 24755)
+-- Name: turnos turnos_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.turnos
+    ADD CONSTRAINT turnos_pkey PRIMARY KEY (id_turno);
+
+
+--
+-- TOC entry 2880 (class 2606 OID 24736)
+-- Name: servicios servicios_id_comercio_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.servicios
+    ADD CONSTRAINT servicios_id_comercio_fkey FOREIGN KEY (id_comercio) REFERENCES public.comercios(id_comercio) NOT VALID;
+
+
+-- Completed on 2023-09-07 19:32:27
+
+--
+-- PostgreSQL database dump complete
+--
+
